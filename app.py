@@ -1,6 +1,7 @@
 import pandas as pd
 import streamlit as st
 import random
+import urllib.request
 
 # Configurazione grafica per smartphone
 st.set_page_config(page_title="Il Mio Guardaroba", page_icon="👔", layout="centered")
@@ -8,16 +9,13 @@ st.set_page_config(page_title="Il Mio Guardaroba", page_icon="👔", layout="cen
 st.title("👔 Il Mio Guardaroba Intelligente")
 st.write("Scegli le condizioni di oggi e lascia che l'app crei l'abbinamento perfetto.")
 
-# Caricamento diretto dal link di OneDrive che abbiamo configurato
 @st.cache_data(ttl=10)
 def carica_guardaroba():
     link_onedrive = "https://live.com"
     try:
-    # Inganna OneDrive fingendosi un browser umano (Chrome)
-    import urllib.request
-    req = urllib.request.Request(link_onedrive, headers={'User-Agent': 'Mozilla/5.0'})
-    with urllib.request.urlopen(req) as response:
-    df = pd.read_excel(response.read())
+        req = urllib.request.Request(link_onedrive, headers={'User-Agent': 'Mozilla/5.0'})
+        with urllib.request.urlopen(req) as response:
+            df = pd.read_excel(response.read())
         df.columns = [c.strip() for c in df.columns]
         return df
     except Exception as e:
