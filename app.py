@@ -1,7 +1,6 @@
-import pandas as pd
+ import pandas as pd
 import streamlit as st
 import random
-import os
 
 # Configurazione grafica per smartphone
 st.set_page_config(page_title="Il Mio Guardaroba", page_icon="👔", layout="centered")
@@ -9,24 +8,18 @@ st.set_page_config(page_title="Il Mio Guardaroba", page_icon="👔", layout="cen
 st.title("👔 Il Mio Guardaroba Intelligente")
 st.write("Scegli le condizioni di oggi e lascia che l'app crei l'abbinamento perfetto.")
 
-# Caricamento automatico dell'Excel nella stessa cartella del codice
+# Caricamento diretto dal link di OneDrive che abbiamo configurato
 @st.cache_data(ttl=10)
 def carica_guardaroba():
-    # Cerca il file Excel nella stessa cartella dello script
-    file_excel = "https://1drv.ms" # Modifica qui se il tuo file si chiama diversamente (es. guardaroba.csv)
-    if not os.path.exists(file_excel):
-        # Prova a cercare estensione .csv se non trova .xlsx
-        file_excel = "guardaroba.csv"
-        
+    # Il tuo link magico di OneDrive ottimizzato per il download diretto
+    link_onedrive = "https://1drv.ms"
     try:
-        if file_excel.endswith('.xlsx'):
-            df = pd.read_excel(file_excel)
-        else:
-            df = pd.read_csv(file_excel)
+        # Legge il file Excel direttamente da internet
+        df = pd.read_excel(link_onedrive)
         df.columns = [c.strip() for c in df.columns]
         return df
     except Exception as e:
-        st.error(f"Errore: Assicurati che il file Excel sia nella stessa cartella e si chiami 'guardaroba.xlsx'. Dettaglio: {e}")
+        st.error(f"Errore nel collegamento a OneDrive: {e}")
         return None
 
 df = carica_guardaroba()
