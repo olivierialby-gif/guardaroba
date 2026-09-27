@@ -11,11 +11,13 @@ st.write("Scegli le condizioni di oggi e lascia che l'app crei l'abbinamento per
 # Caricamento diretto dal link di OneDrive che abbiamo configurato
 @st.cache_data(ttl=10)
 def carica_guardaroba():
-    # Il tuo link magico di OneDrive ottimizzato per il download diretto
-    link_onedrive = "https://live.com"
+   link_onedrive = "https://live.com"
     try:
-        # Legge il file Excel direttamente da internet
-        df = pd.read_excel(link_onedrive)
+        # Inganna OneDrive fingendosi un browser umano (Chrome)
+        import urllib.request
+        req = urllib.request.Request(link_onedrive, headers={'User-Agent': 'Mozilla/5.0'})
+        with urllib.request.urlopen(req) as response:
+            df = pd.read_excel(response.read())
         df.columns = [c.strip() for c in df.columns]
         return df
     except Exception as e:
