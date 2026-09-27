@@ -12,7 +12,7 @@ st.write("Scegli le condizioni di oggi e lascia che l'app crei l'abbinamento per
 @st.cache_data(ttl=10)
 def carica_guardaroba():
     # Il tuo link magico di OneDrive ottimizzato per il download diretto
-    link_onedrive = "https://1drv.ms"
+    link_onedrive = "https://live.com"
     try:
         # Legge il file Excel direttamente da internet
         df = pd.read_excel(link_onedrive)
