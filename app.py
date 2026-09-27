@@ -13,7 +13,7 @@ st.write("Scegli le condizioni di oggi e lascia che l'app crei l'abbinamento per
 @st.cache_data(ttl=10)
 def carica_guardaroba():
     # Cerca il file Excel nella stessa cartella dello script
-    file_excel = "SORGENTE ABBIGLIAMENTO.xlsx" # Modifica qui se il tuo file si chiama diversamente (es. guardaroba.csv)
+    file_excel = "https://1drv.ms" # Modifica qui se il tuo file si chiama diversamente (es. guardaroba.csv)
     if not os.path.exists(file_excel):
         # Prova a cercare estensione .csv se non trova .xlsx
         file_excel = "guardaroba.csv"
